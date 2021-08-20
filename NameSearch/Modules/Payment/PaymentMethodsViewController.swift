@@ -15,35 +15,16 @@ class PaymentMethodsViewController: UIViewController {
 
     var delegate: PaymentMethodsViewControllerDelegate?
     var paymentMethods: [PaymentMethod]?
-
     var viewModel:PaymentType!
     
-  
     override func viewDidLoad() {
         super.viewDidLoad()
-
         viewModel  = PaymentMethodViewModel(paymentMethodsView:self)
-
         viewModel.fetchPaymentMethods()
-//        let request = URLRequest(url: URL(string: "https://gd.proxied.io/user/payment-methods")!)
-//        let session = URLSession(configuration: .default)
-//        let task = session.dataTask(with: request) { (data, response, error) in
-//            guard error == nil else { return }
-//
-//            self.paymentMethods = try!
-//                JSONDecoder().decode([PaymentMethod].self, from: data!)
-//
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        }
-//
-//        task.resume()
     }
 }
 
-extension PaymentMethodsViewController: UITableViewDataSource, UITableViewDelegate {
-   
+extension PaymentMethodsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfPaymentMethods
     }
@@ -51,25 +32,21 @@ extension PaymentMethodsViewController: UITableViewDataSource, UITableViewDelega
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
 
         if let method = viewModel.paymentMethod(for: indexPath.row) {
-            cell.textLabel!.text = method.name
-            if let lastFour = method.lastFour {
-                cell.detailTextLabel!.text = "Ending in \(lastFour)"
-            } else {
-                cell.detailTextLabel!.text = method.displayFormattedEmail!
-            }
+            cell.textLabel!.text = method.title
+            cell.detailTextLabel!.text = method.details
         }
         return cell
     }
+}
+
+extension PaymentMethodsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let method = viewModel.paymentMethod(for: indexPath.row) {
-            PaymentsManager.shared.selectedPaymentMethod = method
-            dismiss(animated: true) {
-                self.delegate?.didSelectPaymentMethod()
-            }
+        viewModel.selectPayment(for: indexPath.row)
+        dismiss(animated: true) {
+            self.delegate?.didSelectPaymentMethod()
         }
     }
 }
-
 extension PaymentMethodsViewController: PaymentMethodsViewType {
     func updateUI() {
         DispatchQueue.main.async {

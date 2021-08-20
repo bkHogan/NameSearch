@@ -11,7 +11,8 @@ import Foundation
 protocol PaymentType {
     var numberOfPaymentMethods:Int { get }
     func fetchPaymentMethods()
-    func paymentMethod(for index:Int)-> PaymentMethod?
+    func paymentMethod(for index:Int)-> Payment?
+    func selectPayment(for index:Int)
 }
 
 class PaymentMethodViewModel: PaymentType {
@@ -41,10 +42,23 @@ class PaymentMethodViewModel: PaymentType {
         }
     }
     
-    func paymentMethod(for index: Int) -> PaymentMethod? {
+    func paymentMethod(for index: Int) -> Payment? {
         if let _paymentMentods = paymentMethods, index >= 0 , index < _paymentMentods.count {
-            return _paymentMentods[index]
+            let method = _paymentMentods[index]
+            var details = ""
+            if let lastFour = method.lastFour {
+                details = "Ending in \(lastFour)"
+            } else if let mail = method.displayFormattedEmail{
+                details = mail
+            }
+            return Payment(title:method.name, details: details)
         }
         return nil
     }
+    
+    func selectPayment(for index:Int) {
+        PaymentsManager.shared.selectedPaymentMethod = self.paymentMethods?[index]
+
+    }
+
 }
