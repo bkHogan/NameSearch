@@ -8,7 +8,10 @@
 
 import Foundation
 
-
+enum RequestType:String {
+    case get = "GET"
+    case post = "POST"
+}
 
 enum NetworkError: Error {
     case parsinFailed(message:String)
@@ -18,102 +21,70 @@ enum NetworkError: Error {
 }
 
 
-typealias Completion<T:Decodable> =  ((Result<T, NetworkError>) -> Void)
+typealias NetworkCompletion =  (Data?, NetworkError?) -> Void
 
 protocol Networkable {
-    func get<T:Decodable>(baseUrl:String, path:String, params:String, type:T.Type, completionHandler:@escaping Completion<T>)
-    func post<T:Decodable>(baseUrl:String, path:String, params:[String:String], type:T.Type, completionHandler:@escaping Completion<T>)
-
+    func run(baseUrl: String,
+                 path: String,
+                 params:[String:String],
+                 requestType:RequestType,
+                 completionHandler: @escaping NetworkCompletion)
 }
 
 /*Created Class to inject as dependency in veiwModel and use MockService for Unit testing*/
 class NetworkManager: Networkable {
-
-    func get<T>(baseUrl: String,
-                path: String,
-                params:String,
-                type: T.Type,
-                completionHandler: @escaping Completion<T>) where T : Decodable {
-        
-        
-        guard var urlComponents = URLComponents(string:baseUrl.appending(path)) else {
-            completionHandler(.failure(.malformedURL(message:"")))
-            return
-        }
-        urlComponents.query = params
-        guard let url = urlComponents.url else {
-            completionHandler(.failure(.malformedURL(message:"")))
-            return
-        }
-        var urlRequest = URLRequest(url: url)
-        
-        urlRequest.httpMethod = "GET"
-        
-        
-        URLSession.shared.dataTask(with:urlRequest) {  (data, responce, error)  in
-            guard  let _responce = responce as? HTTPURLResponse , _responce.statusCode == 200 else {
-                completionHandler(.failure(.errorWith(message: "")))
-                return
-            }
-            guard let data = data else {
-                completionHandler(.failure(.errorWith(message:"")))
-                return
-            }
-            // Parsing data using JsonDecoder
-            if let result = try? JSONDecoder().decode(T.self, from: data) {
-                completionHandler(.success(result))
-            }else {
-                completionHandler(.failure(.parsinFailed(message:"")))
-            }
-        }
-          .resume()
-    }
     
-    func post<T>(baseUrl: String,
+    func run(baseUrl: String,
                  path: String,
                  params:[String:String],
-                 type: T.Type,
-                 completionHandler: @escaping Completion<T>) where T : Decodable {
+                 requestType:RequestType,
+                 completionHandler: @escaping NetworkCompletion) {
         
         guard var urlComponents = URLComponents(string:baseUrl.appending(path)) else {
-            completionHandler(.failure(.malformedURL(message:"")))
+            completionHandler(nil,.malformedURL(message:""))
             return
         }
-        urlComponents.query = ""
+        if requestType == .get {
+            var query = ""
+            for (key , value) in params {
+                query.append("\(key)=\(value)")
+            }
+            urlComponents.query = query
+        }
+        
         guard let url = urlComponents.url else {
-            completionHandler(.failure(.malformedURL(message:"")))
+            completionHandler(nil, .malformedURL(message:""))
             return
         }
         var request = URLRequest(url: url)
         
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .fragmentsAllowed)
+        switch requestType {
+        case .get:
+            request.httpMethod = RequestType.get.rawValue
+        case .post:
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: params, options: .fragmentsAllowed)
+                request.httpMethod = RequestType.post.rawValue
 
-        }catch {
-            completionHandler(.failure(.malformedURL(message:"")))
-            return
+            }catch {
+                completionHandler(nil, .malformedURL(message:""))
+                return
+            }
         }
-
-        request.httpMethod = "POST"
-        
         
         URLSession.shared.dataTask(with:request) {  (data, responce, error)  in
             guard  let _responce = responce as? HTTPURLResponse , _responce.statusCode == 200 else {
-                completionHandler(.failure(.errorWith(message: "")))
+                completionHandler(nil, .errorWith(message: ""))
                 return
             }
            
             guard let data = data, error == nil else {
-                completionHandler(.failure(.errorWith(message:"")))
+                completionHandler(nil, .errorWith(message:""))
                 return
             }
-            // Parsing data using JsonDecoder
-            if let result = try? JSONDecoder().decode(T.self, from: data) {
-                completionHandler(.success(result))
-            }else {
-                completionHandler(.failure(.parsinFailed(message:"")))
-            }
+            
+            completionHandler(data, nil)
+
         }.resume()
     }
-    
 }

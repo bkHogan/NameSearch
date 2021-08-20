@@ -15,16 +15,16 @@ protocol LoginType {
 
 class LoginViewModel: LoginType {
     
-    var networkManager:Networkable
+    var repository:LoginRepositoryType
     weak var loginView:LoginViewType?
     
-    init(networkManager:Networkable = NetworkManager(), loginView:LoginViewType) {
-        self.networkManager = networkManager
+    init(repository:LoginRepositoryType = LoginRepository(), loginView:LoginViewType) {
+        self.repository = repository
         self.loginView = loginView
     }
     
     func login(userName: String, password: String) {
-        networkManager.post(baseUrl:EndPoint.baseUrl, path:APIPath.login.rawValue, params: [:], type:LoginResponse.self) { [weak self] result  in
+        repository.login(userName: userName, password: password, modelType: LoginResponse.self) { [weak self] result  in
             switch result {
             case .success(let response):
                 AuthManager.shared.user = response.user

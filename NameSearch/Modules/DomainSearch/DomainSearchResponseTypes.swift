@@ -97,6 +97,7 @@ public struct DomainSearchRecommendedResponse: Codable {
         self.domains = domains
     }
 }
+
 public struct DomainSearchExactMatchResponse: Codable {
     public struct ExactMatch: Codable {
         public let fqdn: String

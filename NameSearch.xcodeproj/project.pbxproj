@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		04098D3426CF495B005190FF /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D3326CF495B005190FF /* CartViewModel.swift */; };
 		04098D3B26CF6193005190FF /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D3A26CF6193005190FF /* Transaction.swift */; };
+		04098D3D26CF6CA9005190FF /* PaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D3C26CF6CA9005190FF /* PaymentMethodViewModel.swift */; };
+		04098D4026CF75AD005190FF /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D3F26CF75AD005190FF /* LoginRepository.swift */; };
+		04098D4226CF7B46005190FF /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D4126CF7B46005190FF /* SearchRepository.swift */; };
+		04098D4426CF8D71005190FF /* CartRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D4326CF8D71005190FF /* CartRepository.swift */; };
+		04098D4626CF8F35005190FF /* PaymentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D4526CF8F35005190FF /* PaymentRepository.swift */; };
+		04098D4826CF9559005190FF /* BaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D4726CF9559005190FF /* BaseRepository.swift */; };
 		041FB11226CEB9B00069CA2A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11126CEB9B00069CA2A /* NetworkManager.swift */; };
 		041FB11426CEBC550069CA2A /* EndPointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11326CEBC550069CA2A /* EndPointDetails.swift */; };
 		041FB11826CEBDB90069CA2A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11726CEBDB90069CA2A /* LoginViewModel.swift */; };
@@ -56,6 +62,12 @@
 /* Begin PBXFileReference section */
 		04098D3326CF495B005190FF /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
 		04098D3A26CF6193005190FF /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		04098D3C26CF6CA9005190FF /* PaymentMethodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewModel.swift; sourceTree = "<group>"; };
+		04098D3F26CF75AD005190FF /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
+		04098D4126CF7B46005190FF /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
+		04098D4326CF8D71005190FF /* CartRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartRepository.swift; sourceTree = "<group>"; };
+		04098D4526CF8F35005190FF /* PaymentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentRepository.swift; sourceTree = "<group>"; };
+		04098D4726CF9559005190FF /* BaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepository.swift; sourceTree = "<group>"; };
 		041FB11126CEB9B00069CA2A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		041FB11326CEBC550069CA2A /* EndPointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointDetails.swift; sourceTree = "<group>"; };
 		041FB11726CEBDB90069CA2A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -174,8 +186,21 @@
 				BCCC5E05250698E500AC95C0 /* PaymentsManager.swift */,
 				BCCC5E072506990E00AC95C0 /* PaymentMethod.swift */,
 				BCCC5E03250698C800AC95C0 /* PaymentMethodsViewController.swift */,
+				04098D3C26CF6CA9005190FF /* PaymentMethodViewModel.swift */,
 			);
 			path = Payment;
+			sourceTree = "<group>";
+		};
+		04098D3E26CF7581005190FF /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				04098D3F26CF75AD005190FF /* LoginRepository.swift */,
+				04098D4126CF7B46005190FF /* SearchRepository.swift */,
+				04098D4326CF8D71005190FF /* CartRepository.swift */,
+				04098D4526CF8F35005190FF /* PaymentRepository.swift */,
+				04098D4726CF9559005190FF /* BaseRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		041FB11026CEB9950069CA2A /* Networking */ = {
@@ -210,9 +235,10 @@
 		BC0E115D2502F6E1007560B1 /* NameSearch */ = {
 			isa = PBXGroup;
 			children = (
+				041FB11026CEB9950069CA2A /* Networking */,
+				04098D3E26CF7581005190FF /* Repository */,
 				04098D3526CF50F9005190FF /* Modules */,
 				04098D3226CF47DF005190FF /* Utility */,
-				041FB11026CEB9950069CA2A /* Networking */,
 				BC0E115E2502F6E1007560B1 /* AppDelegate.swift */,
 				BC0E11602502F6E1007560B1 /* SceneDelegate.swift */,
 				BC0E11642502F6E1007560B1 /* Main.storyboard */,
@@ -373,21 +399,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04098D3D26CF6CA9005190FF /* PaymentMethodViewModel.swift in Sources */,
 				BC0E11962503BD21007560B1 /* CartItemTableViewCell.swift in Sources */,
 				BCCC5DFC2506963000AC95C0 /* AuthManager.swift in Sources */,
+				04098D4826CF9559005190FF /* BaseRepository.swift in Sources */,
 				BCCC5E02250696C000AC95C0 /* LoginResponse.swift in Sources */,
 				BC0E1191250319F5007560B1 /* ShoppingCart.swift in Sources */,
 				041FB11A26CEC2DE0069CA2A /* SearchViewModel.swift in Sources */,
 				041FB11226CEB9B00069CA2A /* NetworkManager.swift in Sources */,
 				BC0E11632502F6E1007560B1 /* DomainSearchViewController.swift in Sources */,
+				04098D4026CF75AD005190FF /* LoginRepository.swift in Sources */,
 				BC0E115F2502F6E1007560B1 /* AppDelegate.swift in Sources */,
+				04098D4626CF8F35005190FF /* PaymentRepository.swift in Sources */,
 				BCCC5DFA2506931B00AC95C0 /* LoginViewController.swift in Sources */,
 				041FB11826CEBDB90069CA2A /* LoginViewModel.swift in Sources */,
 				BCCC5E002506968F00AC95C0 /* Auth.swift in Sources */,
 				BCCC5E06250698E500AC95C0 /* PaymentsManager.swift in Sources */,
 				BCCC5E082506990E00AC95C0 /* PaymentMethod.swift in Sources */,
+				04098D4226CF7B46005190FF /* SearchRepository.swift in Sources */,
 				BCCC5E04250698C800AC95C0 /* PaymentMethodsViewController.swift in Sources */,
 				04098D3B26CF6193005190FF /* Transaction.swift in Sources */,
+				04098D4426CF8D71005190FF /* CartRepository.swift in Sources */,
 				BC0E118F25030062007560B1 /* DomainSearchResponseTypes.swift in Sources */,
 				041FB11426CEBC550069CA2A /* EndPointDetails.swift in Sources */,
 				04098D3426CF495B005190FF /* CartViewModel.swift in Sources */,

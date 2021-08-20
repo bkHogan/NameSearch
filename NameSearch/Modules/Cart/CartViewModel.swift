@@ -29,23 +29,25 @@ class  CartViewModel: CartType {
         return true
     }
     
-    var networkManager:Networkable
+    var repository:CartRepositoryType
+
     weak var cartView:CartViewType?
     
-    init(networkManager:Networkable = NetworkManager(), cartView:CartViewType) {
-        self.networkManager = networkManager
+    init(repository:CartRepositoryType = CartRepository(), cartView:CartViewType) {
+        self.repository = repository
         self.cartView = cartView
     }
     
     func getPayButtonTitle()-> String {
-        if isPaymentMethodSelected {
+        if !isPaymentMethodSelected {
             return "Select a Payment Method"
         } else {
             var totalPayment = 0.00
 
             ShoppingCart.shared.domains.forEach {
-                let priceDouble = Double($0.price.replacingOccurrences(of: "$", with: ""))!
-                totalPayment += priceDouble
+                if let priceDouble = Double($0.price.replacingOccurrences(of: "$", with: "")) {
+                    totalPayment += priceDouble
+                }
             }
 
             let currencyFormatter = NumberFormatter()
@@ -63,13 +65,13 @@ class  CartViewModel: CartType {
         return nil
     }
     func performPayment() {
+        
         let params: [String: String] = [
             "auth": AuthManager.shared.token!,
             "token": PaymentsManager.shared.selectedPaymentMethod!.token
         ]
         
-        networkManager.post(baseUrl:EndPoint.baseUrl, path:APIPath.payment.rawValue, params:params, type:Transaction.self) { [weak self] result in
-            
+        repository.performPayment(params: params, modelType: Transaction.self) { [weak self] result in
             switch result {
             case .success(let response):
                 self?.cartView?.updateUI()

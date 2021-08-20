@@ -22,39 +22,20 @@ protocol Searchable {
 
 class SearchViewModel: Searchable {
     
-    private var networkManager:Networkable
+    private var repository:SearchRepositoryType
     weak var searchView:SearchViewType?
     private var exactMatchDomains:DomainSearchExactMatchResponse?
     private var suggestedDomains:DomainSearchRecommendedResponse?
 
      var domains: [Domain] {
-         
         var output:[Domain] = []
-        
-        if let exactMatchDomains = exactMatchDomains {
-            let exactDomainPriceInfo = exactMatchDomains.products.first(where: { $0.productId == exactMatchDomains.domain.productId })!.priceInfo
-            let exactDomain = Domain(name: exactMatchDomains.domain.fqdn,
-                                     price: exactDomainPriceInfo.currentPriceDisplay,
-                                     productId: exactMatchDomains.domain.productId)
-            output.append(exactDomain)
-        }
-       
-        if let suggestedDomains = suggestedDomains {
-            let domains = suggestedDomains.domains.map { domain -> Domain in
-                let priceInfo = suggestedDomains.products.first(where: { price in
-                    price.productId == domain.productId
-                })!.priceInfo
-
-                return Domain(name: domain.fqdn, price: priceInfo.currentPriceDisplay, productId: domain.productId)
-            }
-            output.append(contentsOf:domains)
-        }
-
-       return output
+        output.append(contentsOf:getExactDomain())
+        output.append(contentsOf:getSuggestedDomain())
+        return output
     }
     
-    init(networkManager:Networkable = NetworkManager(), searchView:SearchViewType) {
-        self.networkManager = networkManager
+    init(repository:SearchRepositoryType = SearchRepository(), searchView:SearchViewType) {
+        self.repository = repository
         self.searchView = searchView
     }
     
@@ -68,8 +49,7 @@ class SearchViewModel: Searchable {
         
         dispatchGroup.enter()
 
-        networkManager.get(baseUrl:EndPoint.baseUrl, path:APIPath.searchExact.rawValue, params:"q=\(text)", type: DomainSearchExactMatchResponse.self) { [weak self] result in
-            
+        repository.getExactDoamins(keyWord:text, type: DomainSearchExactMatchResponse.self) { [weak self] result in
             switch result {
             case .success(let response):
                 self?.exactMatchDomains = response
@@ -82,26 +62,51 @@ class SearchViewModel: Searchable {
 
         }
         
-        
         dispatchGroup.enter()
-
-        networkManager.get(baseUrl:EndPoint.baseUrl, path:APIPath.searchSpins.rawValue, params:"q=\(text)", type: DomainSearchRecommendedResponse.self) { [weak self] result in
-
+        
+        repository.getSuggestedDoamins(keyWord:text, type: DomainSearchRecommendedResponse.self) { [weak self] result in
             switch result {
             case .success(let response):
                 self?.suggestedDomains = response
-
+                
             case .failure(let error):
                 self?.suggestedDomains = nil
             }
             
             dispatchGroup.leave()
-
+            
         }
-        
+
         dispatchGroup.notify(queue: DispatchQueue.main, work: DispatchWorkItem(block: {
             self.searchView?.updateUI()
         }))
         
+    }
+    
+    private func getExactDomain()-> [Domain] {
+        var output:[Domain] = []
+        if let exactMatchDomains = exactMatchDomains {
+            let exactDomainPriceInfo = exactMatchDomains.products.first(where: { $0.productId == exactMatchDomains.domain.productId })!.priceInfo
+            let exactDomain = Domain(name: exactMatchDomains.domain.fqdn,
+                                     price: exactDomainPriceInfo.currentPriceDisplay,
+                                     productId: exactMatchDomains.domain.productId)
+            output.append(exactDomain)
+        }
+        return output
+    }
+    
+    private func getSuggestedDomain()-> [Domain] {
+        var output:[Domain] = []
+        if let suggestedDomains = suggestedDomains {
+            let domains = suggestedDomains.domains.map { domain -> Domain in
+                let priceInfo = suggestedDomains.products.first(where: { price in
+                    price.productId == domain.productId
+                })!.priceInfo
+
+                return Domain(name: domain.fqdn, price: priceInfo.currentPriceDisplay, productId: domain.productId)
+            }
+            output.append(contentsOf:domains)
+        }
+        return output
     }
 }
