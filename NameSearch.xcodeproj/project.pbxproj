@@ -28,6 +28,9 @@
 		04098D6126CFC7D6005190FF /* CartVeiwModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D6026CFC7D6005190FF /* CartVeiwModelTests.swift */; };
 		04098D6326CFCEFF005190FF /* PaymentSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D6226CFCEFF005190FF /* PaymentSuccess.json */; };
 		04098D6526CFCF0F005190FF /* Paymentfailure.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D6426CFCF0F005190FF /* Paymentfailure.json */; };
+		04098D6726CFD3FD005190FF /* PaymentModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D6626CFD3FD005190FF /* PaymentModelTests.swift */; };
+		04098D6926CFD53C005190FF /* PaymentMethodSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D6826CFD53C005190FF /* PaymentMethodSuccess.json */; };
+		04098D6D26CFD568005190FF /* PaymentMethodFailure.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D6C26CFD568005190FF /* PaymentMethodFailure.json */; };
 		041FB11226CEB9B00069CA2A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11126CEB9B00069CA2A /* NetworkManager.swift */; };
 		041FB11426CEBC550069CA2A /* EndPointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11326CEBC550069CA2A /* EndPointDetails.swift */; };
 		041FB11826CEBDB90069CA2A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11726CEBDB90069CA2A /* LoginViewModel.swift */; };
@@ -91,6 +94,9 @@
 		04098D6026CFC7D6005190FF /* CartVeiwModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartVeiwModelTests.swift; sourceTree = "<group>"; };
 		04098D6226CFCEFF005190FF /* PaymentSuccess.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PaymentSuccess.json; sourceTree = "<group>"; };
 		04098D6426CFCF0F005190FF /* Paymentfailure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Paymentfailure.json; sourceTree = "<group>"; };
+		04098D6626CFD3FD005190FF /* PaymentModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModelTests.swift; sourceTree = "<group>"; };
+		04098D6826CFD53C005190FF /* PaymentMethodSuccess.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PaymentMethodSuccess.json; sourceTree = "<group>"; };
+		04098D6C26CFD568005190FF /* PaymentMethodFailure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PaymentMethodFailure.json; sourceTree = "<group>"; };
 		041FB11126CEB9B00069CA2A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		041FB11326CEBC550069CA2A /* EndPointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointDetails.swift; sourceTree = "<group>"; };
 		041FB11726CEBDB90069CA2A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -234,6 +240,8 @@
 				04098D5E26CFA7BD005190FF /* SuggestedDomainSearchFailureResonse.json */,
 				04098D6226CFCEFF005190FF /* PaymentSuccess.json */,
 				04098D6426CFCF0F005190FF /* Paymentfailure.json */,
+				04098D6826CFD53C005190FF /* PaymentMethodSuccess.json */,
+				04098D6C26CFD568005190FF /* PaymentMethodFailure.json */,
 			);
 			path = MockResponse;
 			sourceTree = "<group>";
@@ -292,6 +300,7 @@
 				04098D4B26CF9AEE005190FF /* LoginViewModelTests.swift */,
 				04098D5426CFA665005190FF /* SearchViewModelTests.swift */,
 				04098D6026CFC7D6005190FF /* CartVeiwModelTests.swift */,
+				04098D6626CFD3FD005190FF /* PaymentModelTests.swift */,
 			);
 			path = NameSearchTests;
 			sourceTree = "<group>";
@@ -426,8 +435,10 @@
 				04098D6526CFCF0F005190FF /* Paymentfailure.json in Resources */,
 				04098D5B26CFA78B005190FF /* ExactDomainSearchFailureResonse.json in Resources */,
 				04098D5D26CFA7AC005190FF /* SuggestedDomainSearchSuccessResonse.json in Resources */,
+				04098D6D26CFD568005190FF /* PaymentMethodFailure.json in Resources */,
 				04098D5926CFA775005190FF /* ExactDomainSearchSuccessResonse.json in Resources */,
 				04098D6326CFCEFF005190FF /* PaymentSuccess.json in Resources */,
+				04098D6926CFD53C005190FF /* PaymentMethodSuccess.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +490,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04098D6726CFD3FD005190FF /* PaymentModelTests.swift in Sources */,
 				04098D6126CFC7D6005190FF /* CartVeiwModelTests.swift in Sources */,
 				04098D5526CFA665005190FF /* SearchViewModelTests.swift in Sources */,
 				04098D4C26CF9AEE005190FF /* LoginViewModelTests.swift in Sources */,

@@ -132,7 +132,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "B3405E34-D25F-4278-8505-E25D4AF3BCC5 - ca760d806f3b7ffb"
+                  uuid = "B3405E34-D25F-4278-8505-E25D4AF3BCC5 - ca760d806f3b7fb9"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -142,12 +142,12 @@
                   urlString = "file:///Users/mac/Downloads/NameSearch/NameSearch/Modules/Cart/CartViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "230">
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "233">
                </Location>
                <Location
-                  uuid = "B3405E34-D25F-4278-8505-E25D4AF3BCC5 - fe85bde69cb82cde"
+                  uuid = "B3405E34-D25F-4278-8505-E25D4AF3BCC5 - fe85bde69cb82c9c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -157,8 +157,8 @@
                   urlString = "file:///Users/mac/Downloads/NameSearch/NameSearch/Modules/Cart/CartViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
                   offsetFromSymbolStart = "112">
                </Location>
             </Locations>
