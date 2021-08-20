@@ -1,12 +1,22 @@
 import UIKit
 
+
+
+protocol CartViewType: AnyObject {
+    func updateUI()
+    func showError(error:String)
+}
+
 class CartViewController: UIViewController {
 
     @IBOutlet var payButton: UIButton!
     @IBOutlet var tableView: UITableView!
 
+    
+    var viewModel:CartType!
+  
     @IBAction func payButtonTapped(_ sender: UIButton) {
-        if PaymentsManager.shared.selectedPaymentMethod == nil {
+        if !viewModel.isPaymentMethodSelected {
             self.performSegue(withIdentifier: "showPaymentMethods", sender: self)
         } else {
             performPayment()
@@ -15,75 +25,25 @@ class CartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel  = CartViewModel(cartView:self)
 
         tableView.register(UINib(nibName: "CartItemTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "CartItemCell")
         updatePayButton()
-    }
-
-    func updatePayButton() {
-        if PaymentsManager.shared.selectedPaymentMethod == nil {
-            payButton.setTitle("Select a Payment Method", for: .normal)
-        } else {
-            var totalPayment = 0.00
-
-            ShoppingCart.shared.domains.forEach {
-                let priceDouble = Double($0.price.replacingOccurrences(of: "$", with: ""))!
-                totalPayment += priceDouble
-            }
-
-            let currencyFormatter = NumberFormatter()
-            currencyFormatter.numberStyle = .currency
-
-            payButton.setTitle("Pay \(currencyFormatter.string(from: NSNumber(value: totalPayment))!) Now", for: .normal)
-        }
-    }
-
-    func performPayment() {
-        payButton.isEnabled = false
-
-        let dict: [String: String] = [
-            "auth": AuthManager.shared.token!,
-            "token": PaymentsManager.shared.selectedPaymentMethod!.token
-        ]
-
-        var request = URLRequest(url: URL(string: "https://gd.proxied.io/payments/process")!)
-        request.httpMethod = "POST"
-        request.httpBody = try! JSONSerialization.data(withJSONObject: dict, options: .fragmentsAllowed)
-
-        let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                let controller = UIAlertController(title: "Oops!", message: error.localizedDescription, preferredStyle: .alert)
-
-                let action = UIAlertAction(title: "Ok", style: .cancel) { _ in
-                    self.payButton.isEnabled = true
-                }
-
-                controller.addAction(action)
-
-                DispatchQueue.main.async {
-                    self.present(controller, animated: true)
-                }
-            } else {
-                let controller = UIAlertController(title: "All done!", message: "Your purchase is complete!", preferredStyle: .alert)
-
-                let action = UIAlertAction(title: "Ok", style: .default) { _ in }
-
-                controller.addAction(action)
-
-                DispatchQueue.main.async {
-                    self.present(controller, animated: true)
-                }
-            }
-
-        }
-        task.resume()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! PaymentMethodsViewController
         vc.delegate = self
     }
+    
+    private func updatePayButton() {
+        payButton.setTitle(viewModel.getPayButtonTitle(), for: .normal)
+    }
+
+    private func performPayment() {
+        payButton.isEnabled = false
+        viewModel.performPayment()
+    }    
 }
 
 extension CartViewController: UITableViewDataSource {
@@ -91,15 +51,20 @@ extension CartViewController: UITableViewDataSource {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ShoppingCart.shared.domains.count
+        return viewModel.numberOfDomains
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CartItemCell", for: indexPath) as! CartItemTableViewCell
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CartItemCell", for: indexPath) as? CartItemTableViewCell else {
+            return UITableViewCell()
+        }
 
         cell.delegate = self
 
-        cell.nameLabel.text = ShoppingCart.shared.domains[indexPath.row].name
-        cell.priceLabel.text = ShoppingCart.shared.domains[indexPath.row].price
+        if let domain = viewModel.getDomain(for: indexPath.row) {
+            cell.nameLabel.text = domain.name
+            cell.priceLabel.text = domain.price
+        }
 
         return cell
     }
@@ -115,5 +80,33 @@ extension CartViewController: CartItemTableViewCellDelegate {
 extension CartViewController: PaymentMethodsViewControllerDelegate {
     func didSelectPaymentMethod() {
         updatePayButton()
+    }
+}
+
+extension CartViewController: CartViewType {
+    func updateUI() {
+        let controller = UIAlertController(title: "All done!", message: "Your purchase is complete!", preferredStyle: .alert)
+
+        let action = UIAlertAction(title: "Ok", style: .default) { _ in }
+
+        controller.addAction(action)
+
+        DispatchQueue.main.async {
+            self.present(controller, animated: true)
+        }
+    }
+    
+    func showError(error:String) {
+        let controller = UIAlertController(title: "Oops!", message:error, preferredStyle: .alert)
+
+        let action = UIAlertAction(title: "Ok", style: .cancel) { _ in
+            self.payButton.isEnabled = true
+        }
+
+        controller.addAction(action)
+
+        DispatchQueue.main.async {
+            self.present(controller, animated: true)
+        }
     }
 }

@@ -10,9 +10,72 @@ import Foundation
 
 
 protocol CartType {
-    
+    var isPaymentMethodSelected:Bool { get }
+    var numberOfDomains:Int { get }
+    func getDomain(for index:Int)-> Domain?
+    func performPayment()
+    func getPayButtonTitle()-> String
 }
 
 class  CartViewModel: CartType {
     
+    var numberOfDomains: Int {
+        return ShoppingCart.shared.domains.count
+    }
+   
+    var isPaymentMethodSelected:Bool {
+        guard  PaymentsManager.shared.selectedPaymentMethod != nil else { return false
+        }
+        return true
+    }
+    
+    var networkManager:Networkable
+    weak var cartView:CartViewType?
+    
+    init(networkManager:Networkable = NetworkManager(), cartView:CartViewType) {
+        self.networkManager = networkManager
+        self.cartView = cartView
+    }
+    
+    func getPayButtonTitle()-> String {
+        if isPaymentMethodSelected {
+            return "Select a Payment Method"
+        } else {
+            var totalPayment = 0.00
+
+            ShoppingCart.shared.domains.forEach {
+                let priceDouble = Double($0.price.replacingOccurrences(of: "$", with: ""))!
+                totalPayment += priceDouble
+            }
+
+            let currencyFormatter = NumberFormatter()
+            currencyFormatter.numberStyle = .currency
+
+            return "Pay \(currencyFormatter.string(from: NSNumber(value: totalPayment))!) Now"
+        }
+    }
+
+    
+    func getDomain(for index: Int)-> Domain? {
+        if index >= 0 && index < ShoppingCart.shared.domains.count {
+            return ShoppingCart.shared.domains[index]
+        }
+        return nil
+    }
+    func performPayment() {
+        let params: [String: String] = [
+            "auth": AuthManager.shared.token!,
+            "token": PaymentsManager.shared.selectedPaymentMethod!.token
+        ]
+        
+        networkManager.post(baseUrl:EndPoint.baseUrl, path:APIPath.payment.rawValue, params:params, type:Transaction.self) { [weak self] result in
+            
+            switch result {
+            case .success(let response):
+                self?.cartView?.updateUI()
+            case .failure(let error):
+                self?.cartView?.showError(error: error.localizedDescription)
+            }
+        }
+    }
 }

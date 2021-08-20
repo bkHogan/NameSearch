@@ -17,4 +17,5 @@ enum APIPath:String {
     case login = "/auth/login"
     case searchExact = "/search/exact"
     case searchSpins = "/search/spins"
+    case payment = "/payments/process"
 }

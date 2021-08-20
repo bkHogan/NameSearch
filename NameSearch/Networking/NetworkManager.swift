@@ -102,7 +102,8 @@ class NetworkManager: Networkable {
                 completionHandler(.failure(.errorWith(message: "")))
                 return
             }
-            guard let data = data else {
+           
+            guard let data = data, error == nil else {
                 completionHandler(.failure(.errorWith(message:"")))
                 return
             }

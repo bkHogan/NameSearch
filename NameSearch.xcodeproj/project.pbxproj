@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		04098D3426CF495B005190FF /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D3326CF495B005190FF /* CartViewModel.swift */; };
+		04098D3B26CF6193005190FF /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D3A26CF6193005190FF /* Transaction.swift */; };
 		041FB11226CEB9B00069CA2A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11126CEB9B00069CA2A /* NetworkManager.swift */; };
 		041FB11426CEBC550069CA2A /* EndPointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11326CEBC550069CA2A /* EndPointDetails.swift */; };
 		041FB11826CEBDB90069CA2A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11726CEBDB90069CA2A /* LoginViewModel.swift */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		04098D3326CF495B005190FF /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
+		04098D3A26CF6193005190FF /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		041FB11126CEB9B00069CA2A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		041FB11326CEBC550069CA2A /* EndPointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointDetails.swift; sourceTree = "<group>"; };
 		041FB11726CEBDB90069CA2A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -157,11 +159,11 @@
 			isa = PBXGroup;
 			children = (
 				BC0E1190250319F5007560B1 /* ShoppingCart.swift */,
-				BCCC5E05250698E500AC95C0 /* PaymentsManager.swift */,
 				BC0E11942503BD21007560B1 /* CartItemTableViewCell.swift */,
 				BC0E11952503BD21007560B1 /* CartItemTableViewCell.xib */,
 				BC0E11922503267C007560B1 /* CartViewController.swift */,
 				04098D3326CF495B005190FF /* CartViewModel.swift */,
+				04098D3A26CF6193005190FF /* Transaction.swift */,
 			);
 			path = Cart;
 			sourceTree = "<group>";
@@ -169,6 +171,7 @@
 		04098D3926CF51BA005190FF /* Payment */ = {
 			isa = PBXGroup;
 			children = (
+				BCCC5E05250698E500AC95C0 /* PaymentsManager.swift */,
 				BCCC5E072506990E00AC95C0 /* PaymentMethod.swift */,
 				BCCC5E03250698C800AC95C0 /* PaymentMethodsViewController.swift */,
 			);
@@ -384,6 +387,7 @@
 				BCCC5E06250698E500AC95C0 /* PaymentsManager.swift in Sources */,
 				BCCC5E082506990E00AC95C0 /* PaymentMethod.swift in Sources */,
 				BCCC5E04250698C800AC95C0 /* PaymentMethodsViewController.swift in Sources */,
+				04098D3B26CF6193005190FF /* Transaction.swift in Sources */,
 				BC0E118F25030062007560B1 /* DomainSearchResponseTypes.swift in Sources */,
 				041FB11426CEBC550069CA2A /* EndPointDetails.swift in Sources */,
 				04098D3426CF495B005190FF /* CartViewModel.swift in Sources */,
