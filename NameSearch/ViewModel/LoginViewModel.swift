@@ -26,7 +26,6 @@ class LoginViewModel: LoginType {
     func login(userName: String, password: String) {
         networkManager.post(baseUrl:EndPoint.baseUrl, path:APIPath.login.rawValue, params: [:], type:LoginResponse.self) { [weak self] result  in
             switch result {
-        
             case .success(let response):
                 AuthManager.shared.user = response.user
                 AuthManager.shared.token = response.auth.token

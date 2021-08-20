@@ -10,6 +10,7 @@
 		041FB11226CEB9B00069CA2A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11126CEB9B00069CA2A /* NetworkManager.swift */; };
 		041FB11426CEBC550069CA2A /* EndPointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11326CEBC550069CA2A /* EndPointDetails.swift */; };
 		041FB11826CEBDB90069CA2A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11726CEBDB90069CA2A /* LoginViewModel.swift */; };
+		041FB11A26CEC2DE0069CA2A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11926CEC2DE0069CA2A /* SearchViewModel.swift */; };
 		BC0E115F2502F6E1007560B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E115E2502F6E1007560B1 /* AppDelegate.swift */; };
 		BC0E11612502F6E1007560B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E11602502F6E1007560B1 /* SceneDelegate.swift */; };
 		BC0E11632502F6E1007560B1 /* DomainSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0E11622502F6E1007560B1 /* DomainSearchViewController.swift */; };
@@ -54,6 +55,7 @@
 		041FB11126CEB9B00069CA2A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		041FB11326CEBC550069CA2A /* EndPointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointDetails.swift; sourceTree = "<group>"; };
 		041FB11726CEBDB90069CA2A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		041FB11926CEC2DE0069CA2A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BC0E115B2502F6E1007560B1 /* NameSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NameSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC0E115E2502F6E1007560B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC0E11602502F6E1007560B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				041FB11726CEBDB90069CA2A /* LoginViewModel.swift */,
+				041FB11926CEC2DE0069CA2A /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				BCCC5DFC2506963000AC95C0 /* AuthManager.swift in Sources */,
 				BCCC5E02250696C000AC95C0 /* LoginResponse.swift in Sources */,
 				BC0E1191250319F5007560B1 /* ShoppingCart.swift in Sources */,
+				041FB11A26CEC2DE0069CA2A /* SearchViewModel.swift in Sources */,
 				041FB11226CEB9B00069CA2A /* NetworkManager.swift in Sources */,
 				BC0E11632502F6E1007560B1 /* DomainSearchViewController.swift in Sources */,
 				BC0E115F2502F6E1007560B1 /* AppDelegate.swift in Sources */,

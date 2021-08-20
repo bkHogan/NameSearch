@@ -21,7 +21,7 @@ enum NetworkError: Error {
 typealias Completion<T:Decodable> =  ((Result<T, NetworkError>) -> Void)
 
 protocol Networkable {
-    func get<T:Decodable>(baseUrl:String, path:String, type:T.Type, completionHandler:@escaping Completion<T>)
+    func get<T:Decodable>(baseUrl:String, path:String, params:String, type:T.Type, completionHandler:@escaping Completion<T>)
     func post<T:Decodable>(baseUrl:String, path:String, params:[String:String], type:T.Type, completionHandler:@escaping Completion<T>)
 
 }
@@ -29,19 +29,18 @@ protocol Networkable {
 /*Created Class to inject as dependency in veiwModel and use MockService for Unit testing*/
 class NetworkManager: Networkable {
 
-    let urlSesson = URLSession(configuration: .default)
-    var dataTask:URLSessionDataTask?
     func get<T>(baseUrl: String,
                 path: String,
+                params:String,
                 type: T.Type,
                 completionHandler: @escaping Completion<T>) where T : Decodable {
         
-        dataTask?.cancel()
+        
         guard var urlComponents = URLComponents(string:baseUrl.appending(path)) else {
             completionHandler(.failure(.malformedURL(message:"")))
             return
         }
-        urlComponents.query = ""
+        urlComponents.query = params
         guard let url = urlComponents.url else {
             completionHandler(.failure(.malformedURL(message:"")))
             return
@@ -51,7 +50,7 @@ class NetworkManager: Networkable {
         urlRequest.httpMethod = "GET"
         
         
-        dataTask =  urlSesson.dataTask(with:urlRequest) {  (data, responce, error)  in
+        URLSession.shared.dataTask(with:urlRequest) {  (data, responce, error)  in
             guard  let _responce = responce as? HTTPURLResponse , _responce.statusCode == 200 else {
                 completionHandler(.failure(.errorWith(message: "")))
                 return
@@ -67,7 +66,7 @@ class NetworkManager: Networkable {
                 completionHandler(.failure(.parsinFailed(message:"")))
             }
         }
-        dataTask?.resume()
+          .resume()
     }
     
     func post<T>(baseUrl: String,
@@ -76,7 +75,6 @@ class NetworkManager: Networkable {
                  type: T.Type,
                  completionHandler: @escaping Completion<T>) where T : Decodable {
         
-        dataTask?.cancel()
         guard var urlComponents = URLComponents(string:baseUrl.appending(path)) else {
             completionHandler(.failure(.malformedURL(message:"")))
             return
@@ -99,7 +97,7 @@ class NetworkManager: Networkable {
         request.httpMethod = "POST"
         
         
-        dataTask =  urlSesson.dataTask(with:request) {  (data, responce, error)  in
+        URLSession.shared.dataTask(with:request) {  (data, responce, error)  in
             guard  let _responce = responce as? HTTPURLResponse , _responce.statusCode == 200 else {
                 completionHandler(.failure(.errorWith(message: "")))
                 return
@@ -114,8 +112,7 @@ class NetworkManager: Networkable {
             }else {
                 completionHandler(.failure(.parsinFailed(message:"")))
             }
-        }
-        dataTask?.resume()
+        }.resume()
     }
     
 }
