@@ -24,8 +24,8 @@ class SearchViewModel: Searchable {
     
     private var repository:SearchRepositoryType
     weak var searchView:SearchViewType?
-    private var exactMatchDomains:DomainSearchExactMatchResponse?
-    private var suggestedDomains:DomainSearchRecommendedResponse?
+    var exactMatchDomains:DomainSearchExactMatchResponse?
+    var suggestedDomains:DomainSearchRecommendedResponse?
 
      var domains: [Domain] {
         var output:[Domain] = []
@@ -42,6 +42,9 @@ class SearchViewModel: Searchable {
     
     func search(keyWord: String?) {
         guard let text = keyWord, text.count > 0 else {
+            self.exactMatchDomains = nil
+            self.suggestedDomains = nil
+            searchView?.updateUI()
             return
         }
                 

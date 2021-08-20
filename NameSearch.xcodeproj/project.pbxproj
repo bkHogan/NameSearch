@@ -20,6 +20,11 @@
 		04098D4F26CF9B87005190FF /* LoginSuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D4E26CF9B87005190FF /* LoginSuccess.json */; };
 		04098D5126CF9BA2005190FF /* LoginFailure.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D5026CF9BA2005190FF /* LoginFailure.json */; };
 		04098D5326CF9CC9005190FF /* DecodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D5226CF9CC9005190FF /* DecodeJson.swift */; };
+		04098D5526CFA665005190FF /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04098D5426CFA665005190FF /* SearchViewModelTests.swift */; };
+		04098D5926CFA775005190FF /* ExactDomainSearchSuccessResonse.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D5826CFA775005190FF /* ExactDomainSearchSuccessResonse.json */; };
+		04098D5B26CFA78B005190FF /* ExactDomainSearchFailureResonse.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D5A26CFA78B005190FF /* ExactDomainSearchFailureResonse.json */; };
+		04098D5D26CFA7AC005190FF /* SuggestedDomainSearchSuccessResonse.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D5C26CFA7AC005190FF /* SuggestedDomainSearchSuccessResonse.json */; };
+		04098D5F26CFA7BD005190FF /* SuggestedDomainSearchFailureResonse.json in Resources */ = {isa = PBXBuildFile; fileRef = 04098D5E26CFA7BD005190FF /* SuggestedDomainSearchFailureResonse.json */; };
 		041FB11226CEB9B00069CA2A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11126CEB9B00069CA2A /* NetworkManager.swift */; };
 		041FB11426CEBC550069CA2A /* EndPointDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11326CEBC550069CA2A /* EndPointDetails.swift */; };
 		041FB11826CEBDB90069CA2A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041FB11726CEBDB90069CA2A /* LoginViewModel.swift */; };
@@ -75,6 +80,11 @@
 		04098D4E26CF9B87005190FF /* LoginSuccess.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LoginSuccess.json; sourceTree = "<group>"; };
 		04098D5026CF9BA2005190FF /* LoginFailure.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LoginFailure.json; sourceTree = "<group>"; };
 		04098D5226CF9CC9005190FF /* DecodeJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeJson.swift; sourceTree = "<group>"; };
+		04098D5426CFA665005190FF /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
+		04098D5826CFA775005190FF /* ExactDomainSearchSuccessResonse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ExactDomainSearchSuccessResonse.json; sourceTree = "<group>"; };
+		04098D5A26CFA78B005190FF /* ExactDomainSearchFailureResonse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ExactDomainSearchFailureResonse.json; sourceTree = "<group>"; };
+		04098D5C26CFA7AC005190FF /* SuggestedDomainSearchSuccessResonse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SuggestedDomainSearchSuccessResonse.json; sourceTree = "<group>"; };
+		04098D5E26CFA7BD005190FF /* SuggestedDomainSearchFailureResonse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SuggestedDomainSearchFailureResonse.json; sourceTree = "<group>"; };
 		041FB11126CEB9B00069CA2A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		041FB11326CEBC550069CA2A /* EndPointDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointDetails.swift; sourceTree = "<group>"; };
 		041FB11726CEBDB90069CA2A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -212,6 +222,10 @@
 			children = (
 				04098D4E26CF9B87005190FF /* LoginSuccess.json */,
 				04098D5026CF9BA2005190FF /* LoginFailure.json */,
+				04098D5826CFA775005190FF /* ExactDomainSearchSuccessResonse.json */,
+				04098D5A26CFA78B005190FF /* ExactDomainSearchFailureResonse.json */,
+				04098D5C26CFA7AC005190FF /* SuggestedDomainSearchSuccessResonse.json */,
+				04098D5E26CFA7BD005190FF /* SuggestedDomainSearchFailureResonse.json */,
 			);
 			path = MockResponse;
 			sourceTree = "<group>";
@@ -268,6 +282,7 @@
 				04098D4D26CF9B6E005190FF /* MockResponse */,
 				BC0E11772502F6E6007560B1 /* Info.plist */,
 				04098D4B26CF9AEE005190FF /* LoginViewModelTests.swift */,
+				04098D5426CFA665005190FF /* SearchViewModelTests.swift */,
 			);
 			path = NameSearchTests;
 			sourceTree = "<group>";
@@ -398,6 +413,10 @@
 			files = (
 				04098D5126CF9BA2005190FF /* LoginFailure.json in Resources */,
 				04098D4F26CF9B87005190FF /* LoginSuccess.json in Resources */,
+				04098D5F26CFA7BD005190FF /* SuggestedDomainSearchFailureResonse.json in Resources */,
+				04098D5B26CFA78B005190FF /* ExactDomainSearchFailureResonse.json in Resources */,
+				04098D5D26CFA7AC005190FF /* SuggestedDomainSearchSuccessResonse.json in Resources */,
+				04098D5926CFA775005190FF /* ExactDomainSearchSuccessResonse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04098D5526CFA665005190FF /* SearchViewModelTests.swift in Sources */,
 				04098D4C26CF9AEE005190FF /* LoginViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
