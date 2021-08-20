@@ -16,7 +16,7 @@ protocol LoginRepositoryType {
     func login<T:Decodable>(userName:String, password:String, modelType:T.Type, completionHandler:@escaping Completion<T> )
 }
 
-class LoginRepository:BaseRepository, LoginRepositoryType {
+class LoginRepository:BaseRepository, LoginRepositoryType, DecodeJson {
     
     func login<T:Decodable>(userName:String, password:String, modelType:T.Type, completionHandler:@escaping Completion<T>) {
         
@@ -28,7 +28,7 @@ class LoginRepository:BaseRepository, LoginRepositoryType {
             }
             // Parsing data using JsonDecoder
             
-            if let result = try? JSONDecoder().decode(T.self, from: data) {
+            if let result = self.decodeObject(input:data, type:modelType.self) {
                 completionHandler(.success(result))
             }else {
                 completionHandler(.failure(.parsinFailed(message:"")))

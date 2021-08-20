@@ -15,7 +15,7 @@ protocol PaymentRepositoryType {
     func getPaymentMethods<T:Decodable>(modelType:T.Type, completionHandler:@escaping paymentMethodsCompletion<T>)
 }
 
-class PaymentRepository: BaseRepository, PaymentRepositoryType {
+class PaymentRepository: BaseRepository, PaymentRepositoryType, DecodeJson {
     
     func getPaymentMethods<T:Decodable>(modelType:T.Type, completionHandler:@escaping paymentMethodsCompletion<T> ) {
         
@@ -27,7 +27,7 @@ class PaymentRepository: BaseRepository, PaymentRepositoryType {
             }
             // Parsing data using JsonDecoder
             
-            if let result = try? JSONDecoder().decode([T].self, from: data) {
+            if let result = self.decodeArray(input:data, type:modelType.self) {
                 completionHandler(.success(result))
             }else {
                 completionHandler(.failure(.parsinFailed(message:"")))

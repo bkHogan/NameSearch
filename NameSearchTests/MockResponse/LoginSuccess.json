@@ -1,0 +1,10 @@
+{
+    "auth": {
+        "token": "99d592a0-c316-4258-b30a-37d67ace4e44",
+        "expiration": "2099-12-31T11:59:59.999Z"
+    },
+    "user": {
+        "first": "GD",
+        "last": "Test"
+    }
+}

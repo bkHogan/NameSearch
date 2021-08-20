@@ -17,7 +17,7 @@ protocol SearchRepositoryType {
                               completionHandler:@escaping Completion<T>)
 }
 
-class SearchRepository:BaseRepository, SearchRepositoryType {
+class SearchRepository:BaseRepository, SearchRepositoryType, DecodeJson {
     
     func getExactDoamins<T>(keyWord:String, type: T.Type, completionHandler: @escaping Completion<T>) where T : Decodable {
         
@@ -29,7 +29,7 @@ class SearchRepository:BaseRepository, SearchRepositoryType {
             }
             // Parsing data using JsonDecoder
             
-            if let result = try? JSONDecoder().decode(T.self, from: data) {
+            if let result = self.decodeObject(input:data, type:type.self) {
                 completionHandler(.success(result))
             }else {
                 completionHandler(.failure(.parsinFailed(message:"")))
@@ -47,7 +47,7 @@ class SearchRepository:BaseRepository, SearchRepositoryType {
             }
             // Parsing data using JsonDecoder
             
-            if let result = try? JSONDecoder().decode(T.self, from: data) {
+            if let result = self.decodeObject(input:data, type:type.self) {
                 completionHandler(.success(result))
             }else {
                 completionHandler(.failure(.parsinFailed(message:"")))

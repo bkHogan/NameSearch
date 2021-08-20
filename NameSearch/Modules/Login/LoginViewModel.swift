@@ -31,7 +31,9 @@ class LoginViewModel: LoginType {
                 AuthManager.shared.token = response.auth.token
                 self?.loginView?.updateUI()
             case .failure(let error):
-                print(error)
+                AuthManager.shared.user = nil
+                AuthManager.shared.token = nil
+                self?.loginView?.showError()
             }
         }
     }
