@@ -93,7 +93,7 @@ class MockSearchRepository: SearchRepositoryType, DecodeJson {
     var suggestedDomainSucces = true
 
     func getExactDoamins<T>(keyWord: String, type: T.Type, completionHandler: @escaping Completion<T>) where T : Decodable {
-        let bundle = Bundle(for:MockLoginRepository.self)
+        let bundle = Bundle(for:MockSearchRepository.self)
         
         var fileName = ""
         
@@ -113,7 +113,7 @@ class MockSearchRepository: SearchRepositoryType, DecodeJson {
     }
     
     func getSuggestedDoamins<T>(keyWord: String, type: T.Type, completionHandler: @escaping Completion<T>) where T : Decodable {
-        let bundle = Bundle(for:MockLoginRepository.self)
+        let bundle = Bundle(for:MockSearchRepository.self)
         
         var fileName = ""
         if suggestedDomainSucces && type == DomainSearchRecommendedResponse.self {

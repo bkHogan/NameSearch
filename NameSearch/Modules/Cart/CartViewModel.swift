@@ -19,6 +19,8 @@ protocol CartType {
 
 class  CartViewModel: CartType {
     
+    var transaction:Transaction?
+    
     var numberOfDomains: Int {
         return ShoppingCart.shared.domains.count
     }
@@ -64,6 +66,7 @@ class  CartViewModel: CartType {
         }
         return nil
     }
+    
     func performPayment() {
         
         let params: [String: String] = [
@@ -74,8 +77,10 @@ class  CartViewModel: CartType {
         repository.performPayment(params: params, modelType: Transaction.self) { [weak self] result in
             switch result {
             case .success(let response):
+                self?.transaction = response
                 self?.cartView?.updateUI()
             case .failure(let error):
+                self?.transaction = nil
                 self?.cartView?.showError(error: error.localizedDescription)
             }
         }
